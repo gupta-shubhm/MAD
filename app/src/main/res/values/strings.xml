@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MAD</string>
+    <string name="logout">Logout</string>
+    <string name="logout_message">Are you sure you want to log out? We are going to miss you so, please log in back for rich content.</string>
+    <string name="complete_signout_message">Check this for complete sign-out.</string>
+    <string name="cancel_message">Cancel</string>
+    <string name="confirm_message">Confirm</string>
+</resources>
