@@ -1,75 +1,53 @@
 package com.uncode.mad
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.widget.CheckBox
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.uncode.mad.databinding.ActivityMainBinding
-import com.uncode.mad.databinding.DialogLayoutBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mainBinding: ActivityMainBinding
-    private val binding get() = mainBinding
+    private lateinit var activityMainBinding: ActivityMainBinding
+    private val binding get() = activityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainBinding = ActivityMainBinding.inflate(layoutInflater)
+        val objects = MADMaterialAlertDialog(this)
+        activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.openDialogButton.setOnClickListener { showLogoutDialog() }
-    }
 
+        binding.opendiag.setOnClickListener {
+            objects.run {
+                setPositiveButtonTextAndIcon("Confirm", R.drawable.healing)
+                setNegativeButtonTextAndIcon("Negative", R.drawable.health)
+                setNeutralButtonTextAndIcon("Neutral", R.drawable.healing)
+                setNeutralButtonVisibility(false)
+                setCheckBoxVisibility(false, "Checked", "Unchecked")
+                setAnimationVisibilityAndAnimation(false, R.raw.logout)
+                setTitleText("Logout")
+                setSubtitleText("Are you sure you want to log out? We are going to miss your so, please log back in for rich content.")
+                show(this@MainActivity)
+                positiveButtonObject().setOnClickListener {
+                    startActivity(
+                        Intent(
+                            this@MainActivity,
+                            SampleActivity::class.java
+                        )
+                    )
+                }
+                negativeButtonObject().setOnClickListener { showAlert("Negative Button") }
+                neutralButtonObject().setOnClickListener { showAlert("Neutral Button") }
+            }
 
-    private fun showLogoutDialog() {
-        var status = false
-        val messageBoxView =
-            LayoutInflater.from(this).inflate(R.layout.dialog_layout, null)
-        val dialog = MaterialAlertDialogBuilder(this).setView(messageBoxView)
-        val dialogLayoutBinding = DialogLayoutBinding.bind(messageBoxView)
-
-        val alertDialog = dialog.create().apply {
-            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            setCancelable(false)
-            show()
-        }
-
-        val checkBox: CheckBox = messageBoxView.findViewById(R.id.signout_pref)
-        checkBox.setOnCheckedChangeListener { compoundButton, _ ->
-            status = (compoundButton.isChecked)
-            compoundButton.text =
-                (if (compoundButton.isChecked) "You will be logged out completely." else "You won't be logged out completely.")
-        }
-
-        dialogLayoutBinding.cancelActionButton.setOnClickListener {
-            alertDialog.dismiss()
-        }
-
-        dialogLayoutBinding.confirmActionButton.setOnClickListener {
-
-//****EDIT YOUR RESPONSES HERE*****/////
-
-/*            if (status) {
-                val snackBar = Snackbar.make(
-                    it,
-                    "Bingo! You're successfully logged out and all preferences are erased",
-                    Snackbar.LENGTH_LONG
-                )
-                snackBar.show()
-
-            } else
-            {
-                val snackBar = Snackbar.make(
-                    it,
-                    "Bingo! You're successfully logged out and preferences are saved",
-                    Snackbar.LENGTH_LONG
-                )
-                snackBar.show()
-            }*/
-
-            alertDialog.dismiss()
         }
     }
+
 }
+
+private fun Context.showAlert(s: String) {
+    Toast.makeText(this, s, Toast.LENGTH_SHORT).show()
+}
+
+
