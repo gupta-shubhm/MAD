@@ -1,0 +1,7 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.MAD_AlertDialog" parent="Theme.MaterialComponents.Light.DarkActionBar" />
+    <style name="WhiteCheck">
+        <item name="colorAccent">#000000</item>
+    </style>
+</resources>

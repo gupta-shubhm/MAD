@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cancel_string">Cancel</string>
+    <string name="confirm_string">Confirm</string>
+    <string name="neutral_string">Neutral</string>
+    <string name="checkbox_message">Checkbox Message</string>
+</resources>
